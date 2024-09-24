@@ -1,0 +1,67 @@
+/* General container for the login component */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+  }
+  
+  /* Styling for the card */
+  .login-card {
+    width: 30rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  .login-header {
+    background-color: #343a40;
+  }
+  
+  /* Input fields styling */
+  .input-field {
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Checkbox label styling */
+  .checkbox-label {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* Styling for the forgot password link */
+  .forgot-password-link {
+    color: #343a40;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* Login button styling */
+  .login-btn {
+    background-color: #343a40;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: #495057;
+  }
+  
+  /* Register link styling */
+  .register-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .register-link:hover {
+    text-decoration: underline;
+  }
+  

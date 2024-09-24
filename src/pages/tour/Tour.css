@@ -1,0 +1,50 @@
+/* src/components/TourList.css */
+.tour-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.tour-card:hover {
+  transform: scale(1.05);
+}
+
+.tour-image {
+  border-radius: 10px 10px 0 0;
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover;
+}
+
+.tour-title {
+  font-weight: bold;
+  text-align: center;
+  color: #343a40; /* Dark gray color */
+}
+
+.tour-button {
+  width: 100%;
+  background-color: #007bff; /* Bootstrap primary color */
+  border: none;
+}
+
+.pagination-item {
+  cursor: pointer;
+  border-radius: 50%; /* Rounded pagination */
+  margin: 0 5px; /* Space between pagination items */
+}
+
+.pagination-item.active {
+  background-color: #007bff; /* Active page color */
+  color: white;
+}
+
+.pagination {
+  border-radius: 10px; /* Rounded pagination container */
+  padding: 10px; /* Padding around pagination */
+  background-color: #f8f9fa; /* Light background for pagination */
+}
+.slider-image {
+  width: 100%;
+  height: auto;
+}

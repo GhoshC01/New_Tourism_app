@@ -1,0 +1,27 @@
+.Toastify__toast {
+    font-family: Arial, sans-serif;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .Toastify__toast--success {
+    background-color: #4caf50; /* Green color for success */
+    color: white;
+  }
+  
+  .Toastify__toast--error {
+    background-color: #f44336; /* Red color for error */
+    color: white;
+  }
+  
+  .Toastify__toast--info {
+    background-color: #2196F3; /* Blue color for info */
+    color: white;
+  }
+  
+  .Toastify__toast--warning {
+    background-color: #ff9800; /* Orange color for warning */
+    color: white;
+  }
+  
