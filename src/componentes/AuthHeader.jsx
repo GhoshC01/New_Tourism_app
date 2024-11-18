@@ -18,7 +18,7 @@ const AuthHeader = ({ logout }) => {
                     <Link to="/about" className="nav-link"> <FontAwesomeIcon icon={faInfoCircle} /> About </Link>
                     <Link to="/tour" className="nav-link"> Tour & Travel </Link>
                     <Link to="/blogs" className="nav-link"> Blogging </Link>
-                    <Link to="/register" className="nav-link"> <FontAwesomeIcon icon={faUserPlus} /> Register </Link>
+                    {/* <Link to="/register" className="nav-link"> <FontAwesomeIcon icon={faUserPlus} /> Blogs </Link> */}
                     <Link to="/dashboard" className="nav-link"> <FontAwesomeIcon icon={faTachometerAlt} /> Dashboard </Link>
                 </Nav>
                 <Nav>

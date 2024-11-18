@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { Container, Card, Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from 'react-router-dom';
-import { register } from '../../reduxStore/authSlice.js';
-import './Register.css'; // Import the CSS file
-import { toast } from 'react-toastify'; // Import ToastContainer here
+import { registerUser } from '../../reduxStore/authSlice';
+import './Register.css';
+import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import { faCircleRight } from '@fortawesome/free-solid-svg-icons';
 import './ToastStyles.css';
-
 
 const Register = () => {
   const [firstName, setFirstname] = useState("");
@@ -21,19 +19,22 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  const registerSubmit = (e) => {
+  const registerSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      dispatch(register({ firstName, lastName, email, password, confirmPassword, contact }));
-      // Assuming the registration is handled synchronously
-      toast.success("Register successfully");
-
-      navigate('/login');
+      try {
+        await dispatch(registerUser({ firstName, lastName, email, password, contact })).unwrap();
+        
+        toast.success("Register successfully");
+        navigate('/login');
+      } catch (error) {
+        toast.error(error.message || 'Registration failed');
+      }
     } else {
       toast.error("Password and confirm password do not match");
     }
   };
+
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
       <Card className="register-card" style={{ marginTop: '70px' }}>
@@ -142,8 +143,9 @@ const Register = () => {
           </Form>
         </Card.Body>
       </Card>
-      {/* Corrected Toast Container */}
-      
+
+      {/* Toast notifications */}
+      <ToastContainer />
     </Container>
   );
 };

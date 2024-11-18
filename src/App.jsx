@@ -12,10 +12,14 @@ import Register from './pages/register/Register.jsx';
 import About from './pages/about/About.jsx';
 import Slider from './pages/slider/Slider.jsx';
 import Tour from './pages/tour/Tour.jsx';
-import Blogs from './pages/blogs/Blogs.jsx';
+import BlogList from './pages/blogs/BlogList.jsx';
+import BlogDetails from './pages/blogs/BlogDetails.jsx';
+// import BlogForm from './pages/blogs/BlogForm.jsx';
 import TourDetails from './pages/tour/TourDetails.jsx';
 import PassengerDetails from './pages/tour/PassengerDetails.jsx'; 
 import Layout from './layouts/Layout.jsx';
+import PrivateRoute from './layouts/PrivateRoute.jsx';
+
 
 function App() {
   return (
@@ -25,12 +29,28 @@ function App() {
           <Route index element={<> <Slider />  </>} />
           <Route path='/login' element={<Login />} />
           <Route path='/tour' element={<><Tour /></>} />
-          <Route path='blogs' element={<Blogs />} />
+          {/* <Route path='blogs' element={<Blogs />} /> */}
           <Route path='/register' element={<Register />} />
           <Route path='/about' element={<About />} />
           <Route path="/tour/:id" element={<TourDetails />} />
           
           <Route path="/passenger-details" element={<PassengerDetails />} /> 
+
+          {/* <Route path="/blogs" element={<BlogList />} /> */}
+                    
+                    {/* Protected Routes
+                    <Route path="/blogs/create" element={
+                        <PrivateRoute>
+                            <BlogForm />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/blogs/edit/:blogId" element={
+                        <PrivateRoute>
+                            <BlogForm />
+                        </PrivateRoute>
+                    } /> */}
+                    <Route path="/blogs" element={<BlogDetails />} />
+
         </Route>
       </Routes>
 

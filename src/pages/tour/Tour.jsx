@@ -1,11 +1,7 @@
-// src/components/TourList.jsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTours } from '../../reduxStore/tourSlice';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button, Pagination } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap styles are imported
-import './Tour.css'; // Import custom styles
 
 const Tours = () => {
   const dispatch = useDispatch();
@@ -14,7 +10,7 @@ const Tours = () => {
   const error = useSelector((state) => state.tours.error);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Change this value for more or less items per page
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(tours.length / itemsPerPage);
 
   useEffect(() => {
@@ -23,12 +19,10 @@ const Tours = () => {
     }
   }, [tourStatus, dispatch]);
 
-  // Handle pagination
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Get current tours based on the current page
   const indexOfLastTour = currentPage * itemsPerPage;
   const indexOfFirstTour = indexOfLastTour - itemsPerPage;
   const currentTours = tours.slice(indexOfFirstTour, indexOfLastTour);
@@ -36,62 +30,101 @@ const Tours = () => {
   let content;
 
   if (tourStatus === 'loading') {
-    content = <div className="text-center">Loading...</div>;
+    content = <div className="text-center text-lg font-semibold">Loading...</div>;
   } else if (tourStatus === 'succeeded') {
     content = (
-      <Row>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {currentTours.map((tour) => (
-          <Col key={tour.id} md={4} className="mb-4">
-            <Card className="tour-card">
-              <Card.Img variant="top" src={tour.thumbnailUrl} className="tour-image" />
-              <Card.Body>
-                <Card.Title className="tour-title">{tour.title}</Card.Title>
-                <Link to={`/tour/${tour.id}`}>
-                  <Button className="tour-button">View Details</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
+          <div key={tour._id || tour.ContryName} className="bg-white rounded-lg shadow-lg p-4">
+            <img
+              src={tour.image && tour.image[0] ? `http://localhost:5000/${tour.image[0]}` : '/path/to/placeholder.jpg'}
+              alt={tour.ContryName}
+              className="w-full h-48 object-cover rounded-md"
+            />
+            <div className="mt-4">
+              <h3 className="text-xl font-semibold mb-2">{tour.ContryName}</h3>
+              <Link to={`/tour/${tour._id}`}>
+                <button className="w-full py-2 mt-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                  View Details
+                </button>
+              </Link>
+            </div>
+          </div>
         ))}
-      </Row>
+      </div>
     );
   } else if (tourStatus === 'failed') {
-    content = <div className="text-danger">{error}</div>;
+    content = <div className="text-red-600 text-center">{error}</div>;
+  }
+
+  // Calculate visible page range (show 3 pages before and after current page)
+  const visiblePages = [];
+  const maxPageNumbers = 3;
+  let startPage = currentPage - maxPageNumbers;
+  let endPage = currentPage + maxPageNumbers;
+
+  if (startPage < 1) {
+    startPage = 1;
+    endPage = Math.min(totalPages, maxPageNumbers * 2 + 1);
+  }
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(1, totalPages - maxPageNumbers * 2 - 1);
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+    visiblePages.push(i);
   }
 
   return (
-    <Container style={{ marginTop: '70px' }}>
-      <h1 className="text-center my-4">Tour List</h1>
+    <div className="container mx-auto mt-16 px-4">
+      <h1 className="text-center text-3xl font-bold my-8">Tour List</h1>
       {content}
-      <Pagination className="justify-content-center mt-4">
-        <Pagination.First 
-          onClick={() => handlePageChange(1)} 
-          disabled={currentPage === 1} 
-        />
-        <Pagination.Prev 
-          onClick={() => handlePageChange(currentPage - 1)} 
-          disabled={currentPage === 1} 
-        />
-        {[...Array(totalPages > 6 ? 6 : totalPages)].map((_, index) => (
-          <Pagination.Item 
-            key={index + 1} 
-            active={index + 1 === currentPage} 
-            onClick={() => handlePageChange(index + 1)}
-            className="pagination-item"
+
+      {/* Pagination Section */}
+      <div className="flex justify-center mt-8 space-x-2">
+        <button
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+        >
+          First
+        </button>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+        >
+          Prev
+        </button>
+
+        {/* Page Number Buttons */}
+        {visiblePages.map((pageNumber) => (
+          <button
+            key={`pagination-${pageNumber}`}
+            className={`px-3 py-1 rounded ${pageNumber === currentPage ? 'bg-blue-600 text-white' : 'bg-blue-100'}`}
+            onClick={() => handlePageChange(pageNumber)}
           >
-            {index + 1}
-          </Pagination.Item>
+            {pageNumber}
+          </button>
         ))}
-        <Pagination.Next 
-          onClick={() => handlePageChange(currentPage + 1)} 
-          disabled={currentPage === totalPages} 
-        />
-        <Pagination.Last 
-          onClick={() => handlePageChange(totalPages)} 
-          disabled={currentPage === totalPages} 
-        />
-      </Pagination>
-    </Container>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-3 py-1 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+        >
+          Next
+        </button>
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+          className={`px-3 py-1 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+        >
+          Last
+        </button>
+      </div>
+    </div>
   );
 };
 

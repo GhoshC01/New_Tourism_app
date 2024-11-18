@@ -13,7 +13,7 @@ const Header = () => {
         <Nav className="me-auto">
           <Link className="nav-link" to="/"> <FontAwesomeIcon icon={faHome} /> Home </Link>
           <Link className="nav-link" to="/about"> <FontAwesomeIcon icon={faInfoCircle} /> About </Link>
-          <Link className="nav-link" to="/blogs">Blog </Link>
+          {/* <Link className="nav-link" to="/blogs">Blog </Link> */}
           <Link className="nav-link" to="/register"> <FontAwesomeIcon icon={faUserPlus} /> Register </Link>
           <Link className="nav-link" to="/login"> <FontAwesomeIcon icon={faSignInAlt} /> Login </Link>
         </Nav>

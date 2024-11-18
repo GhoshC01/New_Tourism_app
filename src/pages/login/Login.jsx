@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'; // Import ToastContainer here
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../../reduxStore/authSlice';
+import { loginUser } from '../../reduxStore/authSlice';
 import './Login.css'; // Import the CSS file
 
 const Login = () => {
@@ -18,11 +18,11 @@ const Login = () => {
 
     try {
       // Dispatch the login action
-      await dispatch(login({ email, password }))
+      await dispatch(loginUser({ email, password })).unwrap()
       toast.success("Login successfully");
       navigate('/tour'); // Redirect to the dashboard or desired route
     } catch (error) {
-      toast.error("Password and confirm password do not match");
+      toast.error("Invalid Credentials or User Name and Password does't match");
     }
   };
 

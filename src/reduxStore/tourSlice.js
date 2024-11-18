@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Async thunk to fetch tours
 export const fetchTours = createAsyncThunk('tours/fetchTours', async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/photos'); // Replace with your dummy API
+  const response = await axios.get('http://localhost:5000/api/tour'); // Replace with your actual API URL
   return response.data;
 });
 
